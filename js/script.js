@@ -2,7 +2,7 @@
 let choices = ['rock', 'paper', 'scissors'];
 
 // Draw a random value from an array
-function randomDraw(data) {
+function getSymbol(data) {
     if (Array.isArray(data)) {
         return data[Math.floor(Math.random() * data.length)];
     } else {
@@ -11,7 +11,7 @@ function randomDraw(data) {
 }
 
 // Determine outcome for comparisons
-function comparisons(ego_choice, alter_choice) {
+function getWinner(ego_choice, alter_choice) {
     let outcome;
 
     if (ego_choice === alter_choice) {
@@ -27,7 +27,7 @@ function comparisons(ego_choice, alter_choice) {
 
 // Computer makes a play
 function computerPlay(options) {
-    return randomDraw(options);
+    return getSymbol(options);
 }
 
 // User makes a play
@@ -44,7 +44,7 @@ function userPlay(options) {
 
 // Play one round of Rock Paper Scissors
 function playRound(playerSelection = userPlay(choices), computerSelection = computerPlay(choices)) {
-    let result = comparisons(playerSelection, computerSelection);
+    let result = getWinner(playerSelection, computerSelection);
     let verb;
 
     if (result === "tie") {
