@@ -1,5 +1,5 @@
 // Possible choices
-let choices = ['rock', 'paper', 'scissors'];
+const choices = ['rock', 'paper', 'scissors'];
 
 // Draw a random value from an array
 function getSymbol(data) {
@@ -61,7 +61,7 @@ function playRound(playerSelection = userPlay(choices), computerSelection = comp
 
 // Play a full game, with multiple rounds
 function game(rounds) {
-    let results = [];
+    const results = [];
     let gc; //general classification - like in cycling
 
     for (let round = 0; round < rounds; round++) {
