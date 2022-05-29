@@ -2,9 +2,9 @@
 const choices = ['rock', 'paper', 'scissors'];
 
 // Draw a random value from an array
-function getSymbol(data) {
-    if (Array.isArray(data)) {
-        return data[Math.floor(Math.random() * data.length)];
+function computerPlay(options) {
+    if (Array.isArray(options)) {
+        return options[Math.floor(Math.random() * options.length)];
     } else {
         return "Please use an array as input.";
     }
@@ -25,21 +25,9 @@ function getWinner(ego_choice, alter_choice) {
     return outcome;
 }
 
-// Computer makes a play
-function computerPlay(options) {
-    return getSymbol(options);
-}
-
 // User makes a play
-function userPlay(options) {
-    let userInput = prompt("Make your choice: ").toLowerCase();
-
-    if (options.includes(userInput)) {
-        return userInput;
-    } else {
-        return "Please choose either of rock, paper, or scissors.";
-    }
-
+function userPlay(e) {
+    return e.target.getAttribute("value").toLowerCase();
 }
 
 // Play one round of Rock Paper Scissors
@@ -84,4 +72,7 @@ function game(rounds) {
 }
 
 // Play a game with five rounds
-game(5);
+// game(5);
+
+const buttons = Array.from(document.querySelectorAll('.rps'));
+buttons.forEach(btn => btn.addEventListener('click', userPlay));
