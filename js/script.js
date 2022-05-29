@@ -59,6 +59,5 @@ function game(rounds) {
 // Play a game with five rounds
 // game(5);
 
-//const buttons = Array.from(document.querySelectorAll('.rps'));
-//buttons.forEach(btn => btn.addEventListener('click', e => playRound(userPlay(e), computerPlay(choices))));
-document.addEventListener('click', e => playRound(userPlay(e), computerPlay(choices)));
+const buttons = Array.from(document.querySelectorAll('.rps'));
+buttons.forEach(btn => btn.addEventListener('click', e => playRound(userPlay(e), computerPlay(choices))));
