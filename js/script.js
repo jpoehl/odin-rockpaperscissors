@@ -69,7 +69,7 @@ userOptions.forEach(btn => btn.addEventListener("click", (el) => {
     const computer = computerPlay(choices);
     const outcome = getWinner(user, computer);
 
-    const display = `You play ${user}, computer plays ${computer} - you ${outcome}!`;
+    const display = `You play ${user}, computer plays ${computer} \u2014 you ${outcome}!`;
     document.querySelector(".round").textContent = display;
 
     if (outcome === "win") {
