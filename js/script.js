@@ -10,41 +10,26 @@ function computerPlay(options) {
     }
 }
 
-// Determine outcome for comparisons
-function getWinner(ego_choice, alter_choice) {
-    let outcome;
-
-    if (ego_choice === alter_choice) {
-        outcome = "tie";
-    } else if (ego_choice === "rock" && alter_choice === "scissors" || ego_choice === "paper" && alter_choice === "rock" || ego_choice === "scissors" && alter_choice === "paper") {
-        outcome = "win";
-    } else {
-        outcome = "lose"
-    }
-
-    return outcome;
-}
-
 // User makes a play
 function userPlay(e) {
     return e.target.getAttribute("value").toLowerCase();
 }
 
-// Play one round of Rock Paper Scissors
-function playRound(playerSelection = userPlay(choices), computerSelection = computerPlay(choices)) {
-    let result = getWinner(playerSelection, computerSelection);
-    let verb;
+// Determine outcome for comparisons from perspective of "ego"
+function playRound(ego_choice, alter_choice) {
+    const outcome = [];
+    outcome[0] = ego_choice;
+    outcome[1] = alter_choice;
 
-    if (result === "tie") {
-        verb = "ties with";
-    } else if (result === "win") {
-        verb = "beats";
+    if (ego_choice === alter_choice) {
+        outcome[2] = "tie";
+    } else if (ego_choice === "rock" && alter_choice === "scissors" || ego_choice === "paper" && alter_choice === "rock" || ego_choice === "scissors" && alter_choice === "paper") {
+        outcome[2] = "win";
     } else {
-        verb = "is beaten by";
+        outcome[2] = "lose"
     }
-
-    return `You ${result}: ${playerSelection} ${verb} ${computerSelection}!`;
-
+    console.log(outcome);
+    return outcome;
 }
 
 // Play a full game, with multiple rounds
@@ -74,5 +59,6 @@ function game(rounds) {
 // Play a game with five rounds
 // game(5);
 
-const buttons = Array.from(document.querySelectorAll('.rps'));
-buttons.forEach(btn => btn.addEventListener('click', userPlay));
+//const buttons = Array.from(document.querySelectorAll('.rps'));
+//buttons.forEach(btn => btn.addEventListener('click', e => playRound(userPlay(e), computerPlay(choices))));
+document.addEventListener('click', e => playRound(userPlay(e), computerPlay(choices)));
