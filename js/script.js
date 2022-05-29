@@ -1,6 +1,3 @@
-// Possible choices
-const choices = ['rock', 'paper', 'scissors'];
-
 // Draw a random value from an array
 function computerPlay(options) {
     if (Array.isArray(options)) {
@@ -12,52 +9,75 @@ function computerPlay(options) {
 
 // User makes a play
 function userPlay(e) {
-    return e.target.getAttribute("value").toLowerCase();
+    const play = e.target.getAttribute("value").toLowerCase();
+    return play;
 }
 
 // Determine outcome for comparisons from perspective of "ego"
-function playRound(ego_choice, alter_choice) {
-    const outcome = [];
-    outcome[0] = ego_choice;
-    outcome[1] = alter_choice;
+function getWinner(ego_choice, alter_choice) {
+    let outcome;
 
     if (ego_choice === alter_choice) {
-        outcome[2] = "tie";
+        outcome = "tie";
     } else if (ego_choice === "rock" && alter_choice === "scissors" || ego_choice === "paper" && alter_choice === "rock" || ego_choice === "scissors" && alter_choice === "paper") {
-        outcome[2] = "win";
+        outcome = "win";
     } else {
-        outcome[2] = "lose"
+        outcome = "lose"
     }
+
     console.log(outcome);
     return outcome;
 }
 
-// Play a full game, with multiple rounds
-function game(rounds) {
-    const results = [];
-    let gc; //general classification - like in cycling
-
-    for (let round = 0; round < rounds; round++) {
-        results.push(playRound());
-        console.log(results[round]);
-    }
-
-    let wins = results.filter(x => x.includes("win")).length;
-    let losses = results.filter(x => x.includes("lose")).length;
-    
-    if (wins == losses) {
-        gc = "No winner!";
-    } else if (wins > losses) {
-        gc = `You win, with ${wins} game(s) won out of ${rounds}.`;
-    } else {
-        gc = `You lose, with ${losses} game(s) lost out of ${rounds}.`;
-    }
-
-    console.log(gc);
+// Update running tally
+function updateTally() {
+    document.querySelector(".user-tally").textContent = `Your tally: ${userTally}`;
+    document.querySelector(".computer-tally").textContent = `Computer tally: ${computerTally}`;
 }
 
-// Play a game with five rounds
-// game(5);
+// Check if game over (user or computer with 5 wins)
+function gameOver(user, computer, roundsToWin = 5) {
+    if (user === roundsToWin) {
+        document.querySelector(".result").textContent = "You win!";
+        return true;
+    } else if (computer === roundsToWin) {
+        document.querySelector(".result").textContent = "Computer wins!";
+        return true;
+    } else {
+        return false;
+    }
+}
 
-const buttons = Array.from(document.querySelectorAll('.rps'));
-buttons.forEach(btn => btn.addEventListener('click', e => playRound(userPlay(e), computerPlay(choices))));
+// Play game
+const choices = ['rock', 'paper', 'scissors'];
+
+let userTally = 0;
+let computerTally = 0;
+
+const userOptions = document.querySelectorAll(".rps");
+userOptions.forEach(btn => btn.addEventListener('click', (el) => {
+    document.querySelector(".result").textContent = ""; // remove message from prior game before first click of a new game
+
+    const user = userPlay(el);
+    const computer = computerPlay(choices);
+    const outcome = getWinner(user, computer);
+
+    const display = `You play ${user}, computer plays ${computer} - you ${outcome}!`;
+    document.querySelector(".round").textContent = display;
+
+    if (outcome === "win") {
+        userTally += 1;
+    } else if (outcome === "lose") {
+        computerTally += 1;
+    } else {
+        userTally += 0;
+        computerTally += 0;
+    }
+
+    updateTally();
+
+    if (gameOver(userTally, computerTally, 5)) {
+        userTally = 0;
+        computerTally = 0;
+    }
+}));
