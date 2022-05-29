@@ -25,7 +25,6 @@ function getWinner(ego_choice, alter_choice) {
         outcome = "lose"
     }
 
-    console.log(outcome);
     return outcome;
 }
 
