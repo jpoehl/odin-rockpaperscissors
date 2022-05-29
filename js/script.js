@@ -29,7 +29,7 @@ function getWinner(ego_choice, alter_choice) {
 }
 
 // Update running tally
-function updateTally() {
+function updateDisplayedTally() {
     document.querySelector(".user-tally").textContent = `Your tally: ${userTally}`;
     document.querySelector(".computer-tally").textContent = `Computer tally: ${computerTally}`;
 }
@@ -73,7 +73,7 @@ userOptions.forEach(btn => btn.addEventListener('click', (el) => {
         computerTally += 0;
     }
 
-    updateTally();
+    updateDisplayedTally();
 
     if (gameOver(userTally, computerTally, 5)) {
         userTally = 0;
