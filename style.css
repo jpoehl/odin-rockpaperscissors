@@ -52,7 +52,11 @@ body {
     border: solid;
     border-radius: 2px;
     border-color: #000000;
+    transition: all 0.08s ease;
+}
 
+.highlight {
+    transform: scale(1.1);
 }
 
 .result {
