@@ -47,14 +47,22 @@ function gameOver(user, computer, roundsToWin = 5) {
     }
 }
 
-// Play game
-const choices = ['rock', 'paper', 'scissors'];
+function removeTransition(e) {
+    if (e.propertyName !== "transform") return;
+    e.target.classList.remove("highlight");
+}
 
+// Play game
 let userTally = 0;
 let computerTally = 0;
 
+const choices = ['rock', 'paper', 'scissors'];
+
 const userOptions = document.querySelectorAll(".rps");
-userOptions.forEach(btn => btn.addEventListener('click', (el) => {
+
+userOptions.forEach(btn => btn.addEventListener("transitionend", removeTransition));
+userOptions.forEach(btn => btn.addEventListener("click", (el) => {
+    btn.classList.add("highlight");
     document.querySelector(".result").textContent = ""; // remove message from prior game before first click of a new game
 
     const user = userPlay(el);
@@ -74,9 +82,10 @@ userOptions.forEach(btn => btn.addEventListener('click', (el) => {
     }
 
     updateDisplayedTally();
-
+    
     if (gameOver(userTally, computerTally, 5)) {
         userTally = 0;
         computerTally = 0;
     }
 }));
+
